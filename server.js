@@ -5,14 +5,17 @@ var sqlite3 = require( 'sqlite3' )
   .verbose();
 var app = express();
 
-var db = new sqlite3.Database( "abouts.db" );
+var db = new sqlite3.Database( "public/db/abouts.db" );
 
-var status = {signed_in: true}
-
+app.use( express.static( __dirname + '/public' ) );
 app.use( cors() );
 app.use( bodyParser.json( {
   extended: false
 } ) );
+
+var status = {
+  signed_in: false
+};
 
 app.get( '/', function ( req, res ) {
   db.all( "SELECT * FROM abouts", function ( err, rows ) {
@@ -27,19 +30,20 @@ app.post( '/person', function ( req, res ) {
   var name = req.body.name;
   var ht = req.body.ht;
   var sign = req.body.sign;
-  db.run( "INSERT INTO abouts (name, ht, sign) VALUES (?,?,?)", name, ht, sign, function (
-    err ) {
-    if ( err ) {
-      throw err
-    };
-    var id = this.lastID;
-    db.get( "SELECT * FROM abouts WHERE id = ?", id, function ( err, row ) {
+  db.run( "INSERT INTO abouts (name, ht, sign) VALUES (?,?,?)", name, ht, sign,
+    function (
+      err ) {
       if ( err ) {
         throw err
       };
-      res.json( row );
-    } )
-  } );
+      var id = this.lastID;
+      db.get( "SELECT * FROM abouts WHERE id = ?", id, function ( err, row ) {
+        if ( err ) {
+          throw err
+        };
+        res.json( row );
+      } )
+    } );
 } );
 
 app.delete( '/person/:id', function ( req, res ) {
@@ -50,7 +54,9 @@ app.delete( '/person/:id', function ( req, res ) {
       if ( err ) {
         throw err
       }
-      res.json({deleted : true})
+      res.json( {
+        deleted: true
+      } )
     } );
 } );
 
@@ -59,7 +65,8 @@ app.put( "/person/:id", function ( req, res ) {
   var name = req.body.name;
   var ht = req.body.ht;
 
-  db.run( "UPDATE pets SET name = ?, ht = ?, sign = ? WHERE id = ?", name, ht, id,
+  db.run( "UPDATE abouts SET name = ?, ht = ?, sign = ? WHERE id = ?", name, ht,
+    id,
     function ( err ) {
       if ( err ) {
         throw err;

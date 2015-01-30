@@ -16,7 +16,7 @@ Node - middleware
 
 ** node inspector
 ** process_manager
-
+x
 slc - inspector based on chrome inspector
 
 node debug -p <process id>  -- suspend a running process and debug a cluster
@@ -30,6 +30,8 @@ V8 profiler - maps asynchronous call stack
 ---
 memory 101 - chrome 
 garbage collection - #1 on google search
+
+hyperscale & micro deployment
 
 
 tip
