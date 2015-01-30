@@ -1,6 +1,6 @@
 var addAboutMe = function () {
     var xhr = new XMLHttpRequest();
-    xhr.open( 'GET', 'http://localhost:3000/' );
+    xhr.open( 'GET', 'http://localhost:3000' );
     xhr.addEventListener( 'load', function () {
         var people = JSON.parse( xhr.responseText );
         people.forEach( function ( person ) {
