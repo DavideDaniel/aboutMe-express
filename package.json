@@ -1,0 +1,17 @@
+{
+  "name": "aboutMeEx",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.10.2",
+    "cors": "^2.5.3",
+    "express": "^4.11.1",
+    "sqlite3": "^3.0.4"
+  }
+}
