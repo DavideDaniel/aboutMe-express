@@ -15,6 +15,7 @@ Node - middleware
  *loopback.io - read up on it (over weekend)
 
 ** node inspector
+** process_manager
 
 slc - inspector based on chrome inspector
 
@@ -40,3 +41,6 @@ Why are eventloops important?
 
    To look up
    Master processes vs worker processes - NOT child processes
+
+We asked maria while we were leaving
+she said that we're getting ahead.. crawford probably just meant about persistence

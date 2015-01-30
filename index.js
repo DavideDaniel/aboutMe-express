@@ -1,5 +1,3 @@
-
-
 var addAllAbouts = function () {
     var xhr = new XMLHttpRequest();
     xhr.open( 'GET', 'http://localhost:3000/' );
@@ -9,7 +7,6 @@ var addAllAbouts = function () {
             addPerson( person );
         } );
     } );
-
     xhr.send();
 };
 
@@ -18,7 +15,7 @@ addAllAbouts();
 // deletes a person using the API
 var deletePerson = function () {
     var li = this.parentNode;
-    var id = li.id.substring( 3 ); 
+    var id = li.id.substring( 3 );
     var xhr = new XMLHttpRequest();
     xhr.open( 'DELETE', 'http://localhost:3000/person/' + id );
     xhr.addEventListener( 'load', function () {
@@ -42,7 +39,8 @@ var setLiToPerson = function ( li, person ) {
     li.setAttribute( 'id', 'person' + person.id );
     li.innerHTML = "";
 
-    var personText = person.name + " is from" + person.ht + " and is a " + person.sign + ".";
+    var personText = person.name + " is from" + person.ht + " and is a " + person.sign +
+        ".";
     var petTextNode = document.createTextNode( personText );
     li.appendChild( petTextNode );
 
@@ -94,27 +92,30 @@ var editPerson = function ( li, name, ht, sign ) {
         var newName = nameField.value;
         var newHt = htField.value;
         var newSign = signField.value;
-        updateAboutMe(li,newName, newHt, newSign)
+        updateAboutMe( li, newName, newHt, newSign )
     } );
     li.appendChild( updateButton );
-
 };
 
 var updateAboutMe = function ( li, newName, newHt, newSign ) {
-    var id = li.id.substring( 3 ); 
-    console.log(id);
+    var id = li.id.substring( 3 );
+    console.log( id );
     var xhr = new XMLHttpRequest();
     xhr.open( 'PUT', 'http://localhost:3000/person/' + id );
     xhr.setRequestHeader( "Content-Type", "application/json;charset=UTF-8" );
     xhr.addEventListener( 'load', function () {
         var returnedPerson = JSON.parse( xhr.responseText );
         setLiToPerson( li, returnedPerson );
-        console.log(returnedPerson);
+        console.log( returnedPerson );
 
     } )
-    var updatedPerson = { name: newName, ht: newHt, sign: newSign};
-    xhr.send(JSON.stringify(updatedPerson))
-    console.log(updatedPerson);
+    var updatedPerson = {
+        name: newName,
+        ht: newHt,
+        sign: newSign
+    };
+    xhr.send( JSON.stringify( updatedPerson ) )
+    console.log( updatedPerson );
 };
 
 var addNewAboutMe = document.getElementById( 'addNewAboutMe' );
