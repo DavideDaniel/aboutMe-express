@@ -15,7 +15,8 @@ addAboutMe();
 // deletes a person using the API
 var deletePerson = function () {
     var li = this.parentNode;
-    var id = li.id.substring( 3 );
+    var id = li.id.substring( 6 );
+
     var xhr = new XMLHttpRequest();
     xhr.open( 'DELETE', 'http://localhost:3000/person/' + id );
     xhr.addEventListener( 'load', function () {
@@ -39,7 +40,7 @@ var setLiToPerson = function ( li, person ) {
     li.setAttribute( 'id', 'person' + person.id );
     li.innerHTML = "";
 
-    var personText = person.name + " is from" + person.ht + " and is a " + person.sign +
+    var personText = person.name + " is from " + person.ht + " and is a " + person.sign +
         ".";
     var petTextNode = document.createTextNode( personText );
     li.appendChild( petTextNode );
@@ -61,11 +62,11 @@ var setLiToPerson = function ( li, person ) {
 
 var editPerson = function ( li, name, ht, sign ) {
     li.innerHTML = '';
-    var id = li.id.substring( 3 );
-
+    var id = li.id.substring( 6 );
+    console.log(id);
     // person name input text field
     var nameField = document.createElement( 'input' );
-    nameField.setAttribute( 'ht', 'text' ); // <input ht = "text"></input>
+    nameField.setAttribute( 'ht', 'text' );
     nameField.value = name;
     li.appendChild( nameField );
 
@@ -98,9 +99,9 @@ var editPerson = function ( li, name, ht, sign ) {
 };
 
 var updateAboutMe = function ( li, newName, newHt, newSign ) {
-    var id = li.id.substring( 3 );
-    
-    console.log( id );
+    var id = li.id.substring( 6 );
+
+    console.log( "id "+id );
     var xhr = new XMLHttpRequest();
     xhr.open( 'PUT', 'http://localhost:3000/person/' + id );
     xhr.setRequestHeader( "Content-Type", "application/json;charset=UTF-8" );

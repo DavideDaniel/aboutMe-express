@@ -8,6 +8,7 @@ var app = express();
 var db = new sqlite3.Database( "public/db/abouts.db" );
 
 app.use( express.static( __dirname + '/public' ) );
+
 app.use( cors() );
 app.use( bodyParser.json( {
   extended: false
@@ -22,7 +23,15 @@ app.get( '/', function ( req, res ) {
     if ( err ) {
       throw err;
     }
-    res.json( rows );
+    maxID = rows.length;
+    if ( maxID > 0 ) {
+      db.get( "SELECT * FROM abouts WHERE ID = ?", maxID, function ( err, row ) {
+        if ( err ) {
+          throw err;
+        }
+        res.json( row );
+      } );
+    }
   } );
 } );
 
@@ -64,8 +73,10 @@ app.put( "/person/:id", function ( req, res ) {
   var id = req.params.id;
   var name = req.body.name;
   var ht = req.body.ht;
+  var sign = req.body.sign;
 
   db.run( "UPDATE abouts SET name = ?, ht = ?, sign = ? WHERE id = ?", name, ht,
+    sign,
     id,
     function ( err ) {
       if ( err ) {

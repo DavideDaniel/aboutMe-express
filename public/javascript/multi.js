@@ -1,3 +1,32 @@
+addAllAbouts();
+
+var addNewAboutMe = document.getElementById( 'addNewAboutMe' );
+addNewAboutMe.addEventListener( 'click', function () {
+    var newName = document.getElementById( 'newName' );
+    var newHt = document.getElementById( 'newHt' );
+    var newSign = document.getElementById( 'newSign' );
+
+    var xhr = new XMLHttpRequest();
+    xhr.open( 'POST', 'http://localhost:3000/person' );
+    xhr.setRequestHeader( "Content-Type", "application/json;charset=UTF-8" );
+    xhr.addEventListener( 'load', function () {
+        var returnedPerson = JSON.parse( xhr.responseText );
+        addPerson( returnedPerson );
+        newName.value = '';
+        newHt.value = '';
+        newSign.value = '';
+    } );
+
+    var newPerson = {
+        name: newName.value,
+        ht: newHt.value,
+        sign: newSign.value
+    };
+    xhr.send( JSON.stringify( newPerson ) );
+} );
+
+
+
 var addAllAbouts = function () {
     var xhr = new XMLHttpRequest();
     xhr.open( 'GET', 'http://localhost:3000/' );
@@ -10,12 +39,14 @@ var addAllAbouts = function () {
     xhr.send();
 };
 
-addAllAbouts();
+
 
 // deletes a person using the API
 var deletePerson = function () {
     var li = this.parentNode;
     var id = li.id.substring( 3 );
+    console.log("delete"+id);
+
     var xhr = new XMLHttpRequest();
     xhr.open( 'DELETE', 'http://localhost:3000/person/' + id );
     xhr.addEventListener( 'load', function () {
@@ -39,7 +70,7 @@ var setLiToPerson = function ( li, person ) {
     li.setAttribute( 'id', 'person' + person.id );
     li.innerHTML = "";
 
-    var personText = person.name + " is from" + person.ht + " and is a " + person.sign +
+    var personText = person.name + " is from " + person.ht + " and is a " + person.sign +
         ".";
     var petTextNode = document.createTextNode( personText );
     li.appendChild( petTextNode );
@@ -62,6 +93,7 @@ var setLiToPerson = function ( li, person ) {
 var editPerson = function ( li, name, ht, sign ) {
     li.innerHTML = '';
     var id = li.id.substring( 3 );
+    console.log("editPerson " +id);
 
     // person name input text field
     var nameField = document.createElement( 'input' );
@@ -99,7 +131,7 @@ var editPerson = function ( li, name, ht, sign ) {
 
 var updateAboutMe = function ( li, newName, newHt, newSign ) {
     var id = li.id.substring( 3 );
-    console.log( id );
+    console.log( "updateAboutMe " +id );
     var xhr = new XMLHttpRequest();
     xhr.open( 'PUT', 'http://localhost:3000/person/' + id );
     xhr.setRequestHeader( "Content-Type", "application/json;charset=UTF-8" );
@@ -118,27 +150,3 @@ var updateAboutMe = function ( li, newName, newHt, newSign ) {
     console.log( updatedPerson );
 };
 
-var addNewAboutMe = document.getElementById( 'addNewAboutMe' );
-addNewAboutMe.addEventListener( 'click', function () {
-    var newName = document.getElementById( 'newName' );
-    var newHt = document.getElementById( 'newHt' );
-    var newSign = document.getElementById( 'newSign' );
-
-    var xhr = new XMLHttpRequest();
-    xhr.open( 'POST', 'http://localhost:3000/person' );
-    xhr.setRequestHeader( "Content-Type", "application/json;charset=UTF-8" );
-    xhr.addEventListener( 'load', function () {
-        var returnedPerson = JSON.parse( xhr.responseText );
-        addPerson( returnedPerson );
-        newName.value = '';
-        newHt.value = '';
-        newSign.value = '';
-    } );
-
-    var newPerson = {
-        name: newName.value,
-        ht: newHt.value,
-        sign: newSign.value
-    };
-    xhr.send( JSON.stringify( newPerson ) );
-} );
