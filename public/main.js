@@ -1,6 +1,6 @@
  var addAboutMe = function () {
     var xhr = new XMLHttpRequest();
-    xhr.open( 'GET', 'http://localhost:3000/' );
+    xhr.open( 'GET', 'http://localhost:3000/check' );
     xhr.addEventListener( 'load', function () {
         var person = JSON.parse( xhr.responseText );
         if ( person !== undefined )
@@ -26,13 +26,13 @@
         .style.display = 'none';;
     var newSign = document.querySelector( '#newSign' )
         .style.display = 'none';;
-    var add = document.querySelector( 'addNewAboutMe' )
+    var add = document.querySelector( '#addNewAboutMe' )
         .style.display = 'none';;
 
  };
  addAboutMe();
 
- var addNewAboutMe = document.querySelector( 'addNewAboutMe' );
+ var addNewAboutMe = document.querySelector( '#addNewAboutMe' );
  addNewAboutMe.addEventListener( 'click', function () {
     var newName = document.querySelector( '#newName' );
     var newHt = document.querySelector( '#newHt' );

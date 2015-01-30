@@ -12,12 +12,9 @@ app.use( bodyParser.json( {
   extended: false
 } ) );
 
-app.get('/', function(req,res) {
-  res.sendFile('public/index.html');
-});
+app.use(express.static(__dirname + '/public'));
 
-
-app.get( '/', function ( req, res ) {
+app.get( '/check', function ( req, res ) {
   db.all( "SELECT * FROM abouts", function ( err, rows ) {
     if ( err ) {
       throw err;
@@ -54,7 +51,6 @@ app.post( '/', function ( req, res ) {
       } );
     } );
 } );
-
 
 app.listen( 3000 );
 console.log( 'Listening on port 3000' );
