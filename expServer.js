@@ -5,7 +5,7 @@ var sqlite3 = require( 'sqlite3' )
 var cors = require( 'cors' );
 
 var app = express();
-var db = new sqlite3.Database( "abouts.db" );
+var db = new sqlite3.Database( "db/abouts.db" );
 
 app.use( cors() );
 app.use( bodyParser.json( {
