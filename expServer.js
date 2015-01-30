@@ -12,7 +12,10 @@ app.use( bodyParser.json( {
   extended: false
 } ) );
 
-app.use(express.static(__dirname + '/public'));
+app.get('/', function(req,res) {
+  res.sendFile('public/index.html');
+});
+
 
 app.get( '/', function ( req, res ) {
   db.all( "SELECT * FROM abouts", function ( err, rows ) {
